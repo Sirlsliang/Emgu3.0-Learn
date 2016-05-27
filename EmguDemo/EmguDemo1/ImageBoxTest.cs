@@ -46,6 +46,9 @@ namespace EmguDemo1
             
         }
 
-      
+        private void imageBox2_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
