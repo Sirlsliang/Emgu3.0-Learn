@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace EmguDemo1.Properties
+namespace EmguShapDetection.Properties
 {
 
 

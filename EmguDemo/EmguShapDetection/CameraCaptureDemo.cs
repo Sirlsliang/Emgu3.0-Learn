@@ -13,7 +13,7 @@ using Emgu.CV;
 using Emgu.CV.Util;
 using Emgu.CV.Structure;
 using Emgu.CV.UI;
-namespace EmguDemo1
+namespace EmguShapDetection
 {
     public partial class CameraCaptureDemo : Form
     {

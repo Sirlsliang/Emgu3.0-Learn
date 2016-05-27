@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace EmguDemo1
+namespace EmguShapDetection
 {
     public partial class MainForm : Form
     {
@@ -56,6 +56,11 @@ namespace EmguDemo1
                 form.Show();
                 form.TopMost = true;
             }
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

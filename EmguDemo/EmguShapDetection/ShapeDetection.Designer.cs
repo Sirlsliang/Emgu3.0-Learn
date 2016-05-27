@@ -1,4 +1,4 @@
-﻿namespace EmguDemo1
+﻿namespace EmguShapDetection
 {
     partial class ShapeDetection
     {

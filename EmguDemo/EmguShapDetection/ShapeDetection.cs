@@ -16,7 +16,7 @@ using System.Threading;
 using Emgu.CV.UI;
 using System.Diagnostics;
 
-namespace EmguDemo1
+namespace EmguShapDetection
 {
     public partial class ShapeDetection : Form
     {

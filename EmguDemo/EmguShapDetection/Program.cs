@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace EmguDemo1
+namespace EmguShapDetection
 {
     static class Program
     {
@@ -16,8 +16,8 @@ namespace EmguDemo1
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            //Application.Run(new MainForm());
-            Application.Run(new ShapeDetection());
+            Application.Run(new MainForm());
+            //Application.Run(new ShapeDetection());
         }
     }
 }

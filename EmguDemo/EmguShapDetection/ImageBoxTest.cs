@@ -13,7 +13,7 @@ using Emgu.CV.Util;
 using Emgu.CV.CvEnum;
 using Emgu.CV.Structure;
 
-namespace EmguDemo1
+namespace EmguShapDetection
 {
     public partial class ImageBoxTest : Form
     {
