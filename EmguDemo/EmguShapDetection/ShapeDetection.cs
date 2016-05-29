@@ -64,7 +64,7 @@ namespace EmguShapDetection
         private void button2_Click(object sender, EventArgs e)
         {
             SWReset();
-            //将图片转换成灰度图，并过滤掉噪音
+            //将图片转换成灰度图
              uImage= new UMat();
             //转换颜色模式
             CvInvoke.CvtColor(srcImage, uImage, ColorConversion.Bgr2Gray);
@@ -79,9 +79,10 @@ namespace EmguShapDetection
         {
             SWReset();
             UMat pydownImage = new UMat();
-
+            //uImage.ToImage<Gray, byte>().PyrDown();
             CvInvoke.PyrDown(uImage, pydownImage);
             CvInvoke.PyrUp(pydownImage, uImage);
+            
             ShowImage(uImage);
             SWStop("去噪");
         }
@@ -122,7 +123,7 @@ namespace EmguShapDetection
             Image<Bgr, byte> lineImage = srcImage.CopyBlank();
             foreach (LineSegment2D line in lines)
                 lineImage.Draw(line, new Bgr(Color.Green),2);
-            imageBox2.Image = lineImage;
+            imageBox2.Image = cannyEdges;
         }
 
         private void button6_Click(object sender, EventArgs e)
@@ -176,7 +177,7 @@ namespace EmguShapDetection
             foreach (RotatedRect box in boxList)
                 triangleRectangleImage.Draw(box, new Bgr(Color.DarkOrange), 2);
             imageBox2.Image = triangleRectangleImage;
-
+          
             
         }
 

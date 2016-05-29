@@ -1,0 +1,8 @@
+D:\C#\Emgu3.0-Learn\EmguDemo\SURFFactureDetector\bin\Debug\SURFFactureDetector.exe.config
+D:\C#\Emgu3.0-Learn\EmguDemo\SURFFactureDetector\bin\Debug\SURFFactureDetector.exe
+D:\C#\Emgu3.0-Learn\EmguDemo\SURFFactureDetector\bin\Debug\SURFFactureDetector.pdb
+D:\C#\Emgu3.0-Learn\EmguDemo\SURFFactureDetector\obj\Debug\SURFFactureDetector.csprojResolveAssemblyReference.cache
+D:\C#\Emgu3.0-Learn\EmguDemo\SURFFactureDetector\obj\Debug\SURFFactureDetector.Properties.Resources.resources
+D:\C#\Emgu3.0-Learn\EmguDemo\SURFFactureDetector\obj\Debug\SURFFactureDetector.csproj.GenerateResource.Cache
+D:\C#\Emgu3.0-Learn\EmguDemo\SURFFactureDetector\obj\Debug\SURFFactureDetector.exe
+D:\C#\Emgu3.0-Learn\EmguDemo\SURFFactureDetector\obj\Debug\SURFFactureDetector.pdb

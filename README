@@ -1,1 +1,7 @@
-该文件库主要是根据Emgu3.0文档中的代码，自己做得一些分析和总结。这是对Emgu3.0 学习的库。
+  该文件库主要是根据Emgu3.0文档中的代码，自己做得一些分析和总结。这是针对Emgu3.0 文档学习的库。
+    环境介绍：
+      windows 8
+      Visual Studio 2015
+    Emgu3.0 配置及下载页面：www.emgu.com/wiki/index.php/Setting_up_EMGU_C_Sharp
+
+    本文中的工程是按照Emgu3.0的文档进行安排的。每一个介绍，新添加一个工程

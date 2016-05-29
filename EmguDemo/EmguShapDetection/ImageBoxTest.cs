@@ -33,14 +33,14 @@ namespace EmguShapDetection
                 imageBox1.Image = myImage;
                 Image<Rgb, byte> grayImage = myImage.Convert<Rgb, byte>();
                 imageBox2.Image =grayImage;
-                for (int row = 0; row < grayImage.Height; row++) {
-                    for (int col = 0; col < grayImage.Width; col++) {
-                        for (int dep = 0; dep < 3; dep++) {
-                            Console.Write(grayImage.Data[row,col,dep]+"   ");
-                        }
-                    }
-                    Console.WriteLine("\n");
-                }
+                //for (int row = 0; row < grayimage.height; row++) {
+                //    for (int col = 0; col < grayimage.width; col++) {
+                //        for (int dep = 0; dep < 3; dep++) {
+                //            console.write(grayimage.data[row,col,dep]+"   ");
+                //        }
+                //    }
+                //    console.writeline("\n");
+                //}
             }
             
             
