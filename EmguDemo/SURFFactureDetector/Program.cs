@@ -16,7 +16,11 @@ namespace SURFFactureDetector
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            //Application.Run(new Form1());
+            //Application.Run(new camForm());
+            //Application.Run(new FaceDetection());
+            //Application.Run(new faceRecognition());
+            Application.Run(new MainForm());
         }
     }
 }

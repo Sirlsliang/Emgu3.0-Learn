@@ -1,0 +1,81 @@
+
+Form1:
+	实现了两个图像的特征匹配
+		基本的思路：
+			1、创建特征匹配算法器。
+			2、侦测源/目标图像特征点并计算这些点的描述符。
+			3、进行Brute Force 匹配
+			4、过滤匹配特征
+			5、判断特征匹配点
+			6、再次过滤匹配特征点
+			7、返回特征点数据
+		namespace：
+			Features2D:
+				包含了对2D图像的检测、匹配和匹配的类。
+		下面的都是翻译的文档，英文比较渣，凑合看，写着推荐的是自己无法理解其意思，就把其推荐值写出来了。
+		主要函数介绍：
+			1、CudaInvoke.HasCuda //判断是否存在英伟达显卡
+			2、SURF surf = new SURF(hessianThreld) //创建surf算法器,hessianThreld阈值，该值越大，检测越严格
+			3、DetectAndCompute() //检测图像中的关键点并在关键点位置计算关键点的描述符
+				参数：
+					IInputArray			: 输入图像（Umat）
+					IInputArray			：选择性遮罩，可以设置为null
+					VectorOfKeyPoint: 检测到的关键点就存储在该向量中
+					IOutputArray		：关键点对应的描述符（UMat）
+					bool						:如果位置，该方法就不会侦测关键点，而是直接计算关键点的描述信息
+			4、BFMatcher()			 //创建BFMatcher算法器
+				参数：
+					DistanceType		:distanceType
+					bool						:确定是否交叉检查，默认为false
+			5、KnnMatch()				//寻找在K以内的匹配特征
+				参数：
+					IInputArray			:需要查询相邻描述符的n*m矩阵，n是描述符的数量，m是描述符的尺寸
+					VectoOfVectorOfDMatch:匹配特征。
+					int							：需要搜寻的范围，k以内
+					IInputArray			：如果不需要则为null。n*1 的矩阵。如果0，与响应列相关的查询描述符将被取消。
+			6、VoteForUniqueness：//过滤匹配特征
+					参数：
+						VectorOfVectorOfDMatch:匹配特征
+						double				:推荐0.8；the distance different ratio which a match is consider unique
+						Mat						:该矩阵显示了匹配时哪一行有效
+			7、VoteForSizeAndOrientation /剔除那些旋转和缩放不与大多数匹配和旋转统一的特征点
+				参数：
+					VectorOfKeyPoint:模型图像的关键点
+					VectorOfKeyPoint:观察图像的关键点
+					VectorOfVectorOfMatch: 匹配特征
+					Mat							:遮罩，该矩阵显示了匹配时哪一行有效
+					double					:推荐1.5
+					int							:推荐20
+			8、GetHomographyMatrixFromMatchedFeatures 使用RANDSAC算法获取单应性矩阵，如果得不到相关矩阵，返回null
+				参数：
+					VectorOfKeyPoint:模型的关键点
+					VectorOfKeyPoint:被观察图像的关键点
+					VectorOfVectorOfDmatch:匹配特征
+					Mat							：值可能被函数修改的遮罩矩阵，作为输入，如果值为0，当计算Homograph矩阵时。相关的矩阵将会被忽略，如果值为1并且RANSAC认为是轮廓，那么值就会被设置为0.
+					double					:（将点作为内层点时，所能允许的最大二次投影错误）？，如果模型点阵和观察点阵是通过像素测得的，那么该值的取值范围应该为1-10
+		这里面主要用到了SURF特征点匹配算法，利用SURF特征点匹配算法获取到关键点及其描述信息，再利用Brute Force 匹配进行匹配，然后再将特征点进行过滤。最后根据匹配的点，
+		决定是否再进行过滤。最后返回相应的矩阵。
+
+CamForm：
+	实现了摄像头的开启
+		基本思路：
+			1、利用Capture类，创建开启摄像头
+			2、将捕捉摄像头画面的程序加入Application.Idle中
+FaceDetection：
+	实现了人脸检测
+		基本思路：
+			1、打开摄像头，
+			2、利用Timer不断的获取摄像头捕捉的画面
+			3、使用Viola-Joners算法（emgu3.0以上在CascadeClassifier类中）检测人脸
+			4、将检测到的人脸标记出来
+			5、显示图像
+		主要方法：
+			1、CascadeClassifier cascadeClassifier = new CascadeClassifier(string);
+				参数string：
+					这个是CascaClassifer 人脸检测的训练数据，该数据一般存放在（[EmguCV ROOT]\opencv\data\haarcascades目录中）,该数据已经经训练。（人脸识别属于机器学习的范畴）
+		  2、cascadeClassifier.DetectMultiScale(grayFrame,1.1,10,Size.Empty)
+				参数：
+					grayFrame:待检测图像的灰度图
+					1.1：缩放因子，这个值必须大于1.0，越接近1.0检测人脸的时间越长，但是识别率越高。
+					10：邻近值得范围。最小为1.默认为3.该值越小，图像中出现的矩形越多。
+					Size.Empty:像素尺寸
