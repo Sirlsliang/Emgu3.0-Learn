@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShapeDetect", "EmguShapDete
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SURFFactureDetector", "SURFFactureDetector\SURFFactureDetector.csproj", "{56640579-C38B-47E7-BB2B-4242109C3330}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FASTFeatureDetector", "FASTFeatureDetector\FASTFeatureDetector.csproj", "{E0DDB364-1B88-43D0-8BCD-6CC719D04F9C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{56640579-C38B-47E7-BB2B-4242109C3330}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{56640579-C38B-47E7-BB2B-4242109C3330}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{56640579-C38B-47E7-BB2B-4242109C3330}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E0DDB364-1B88-43D0-8BCD-6CC719D04F9C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0DDB364-1B88-43D0-8BCD-6CC719D04F9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0DDB364-1B88-43D0-8BCD-6CC719D04F9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E0DDB364-1B88-43D0-8BCD-6CC719D04F9C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

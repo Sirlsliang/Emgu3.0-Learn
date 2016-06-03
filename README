@@ -4,4 +4,6 @@
       Visual Studio 2015
     Emgu3.0 配置及下载页面：www.emgu.com/wiki/index.php/Setting_up_EMGU_C_Sharp
 
-    本文中的工程是按照Emgu3.0的文档进行安排的。每一个介绍，新添加一个工程
+    本文中的工程是按照Emgu3.0的文档进行安排的。每一个介绍，新添加一个工程。
+
+    此次试验中只有一个soulution。solution中有不同的project 对应着不同的实现。具体的实现内容等信息可以参考每个project内的releaseNote.txt

@@ -24,6 +24,9 @@ namespace SURFFactureDetector
         public ReconizerEngine() {
             this.recognizeFilePath = Environment.CurrentDirectory+ConfigurationManager.AppSettings["recognizerPath"]; 
             this.dataStoreAccess = new DataStoreAccess();
+            //EigenFaceRecognizer 基于PCA变换的人脸识别
+            //FisherFaceRecognizer 基于Fisher变换的人脸识别
+            //LBPHFaceRecognizer 基于局部二值模式的人脸识别
             this.faceRecognizer = new EigenFaceRecognizer(80,double.PositiveInfinity);
         }
 

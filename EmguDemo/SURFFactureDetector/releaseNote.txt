@@ -1,0 +1,115 @@
+﻿
+
+Form1:
+	实现了两个图像的特征匹配
+		基本的思路：
+			1、创建特征匹配算法器。
+			2、侦测源/目标图像特征点并计算这些点的描述符。
+			3、进行Brute Force 匹配
+			4、过滤匹配特征
+			5、判断特征匹配点
+			6、再次过滤匹配特征点
+			7、返回特征点数据
+		namespace：
+			Features2D:
+				包含了对2D图像的检测、匹配和匹配的类。
+		下面的都是翻译的文档，英文比较渣，请大家凑合看，标注推荐的是自己无法理解其意思，就把其推荐值写出来了。
+		主要函数介绍：
+			1、CudaInvoke.HasCuda //判断是否存在英伟达显卡
+			2、SURF surf = new SURF(hessianThreld) //创建surf算法器,hessianThreld阈值，该值越大，检测越严格
+			3、DetectAndCompute() //检测图像中的关键点并在关键点位置计算关键点的描述符
+				参数：
+					IInputArray			: 输入图像（Umat）
+					IInputArray			：选择性遮罩，可以设置为null
+					VectorOfKeyPoint: 检测到的关键点就存储在该向量中
+					IOutputArray		：关键点对应的描述符（UMat）
+					bool						:如果位置，该方法就不会侦测关键点，而是直接计算关键点的描述信息
+			4、BFMatcher()			 //创建BFMatcher算法器
+				参数：
+					DistanceType		:distanceType
+					bool						:确定是否交叉检查，默认为false
+			5、KnnMatch()				//寻找在K以内的匹配特征
+				参数：
+					IInputArray			:需要查询相邻描述符的n*m矩阵，n是描述符的数量，m是描述符的尺寸
+					VectoOfVectorOfDMatch:匹配特征。
+					int							：需要搜寻的范围，k以内
+					IInputArray			：如果不需要则为null。n*1 的矩阵。如果0，与响应列相关的查询描述符将被取消。
+			6、VoteForUniqueness：//过滤匹配特征
+					参数：
+						VectorOfVectorOfDMatch:匹配特征
+						double				:推荐0.8；the distance different ratio which a match is consider unique
+						Mat						:该矩阵显示了匹配时哪一行有效
+			7、VoteForSizeAndOrientation /剔除那些旋转和缩放不与大多数匹配和旋转统一的特征点
+				参数：
+					VectorOfKeyPoint:模型图像的关键点
+					VectorOfKeyPoint:观察图像的关键点
+					VectorOfVectorOfMatch: 匹配特征
+					Mat							:遮罩，该矩阵显示了匹配时哪一行有效
+					double					:推荐1.5
+					int							:推荐20
+			8、GetHomographyMatrixFromMatchedFeatures 使用RANDSAC算法获取单应性矩阵，如果得不到相关矩阵，返回null
+				参数：
+					VectorOfKeyPoint:模型的关键点
+					VectorOfKeyPoint:被观察图像的关键点
+					VectorOfVectorOfDmatch:匹配特征
+					Mat							：值可能被函数修改的遮罩矩阵，作为输入，如果值为0，当计算Homograph矩阵时。相关的矩阵将会被忽略，如果值为1并且RANSAC认为是轮廓，那么值就会被设置为0.
+					double					:（将点作为内层点时，所能允许的最大二次投影错误）？，如果模型点阵和观察点阵是通过像素测得的，那么该值的取值范围应该为1-10
+		这里面主要用到了SURF特征点匹配算法，利用SURF特征点匹配算法获取到关键点及其描述信息，再利用Brute Force 匹配进行匹配，然后再将特征点进行过滤。最后根据匹配的点，
+		决定是否再进行过滤。最后返回相应的矩阵。
+
+CamForm：
+	实现了摄像头的开启
+		基本思路：
+			1、利用Capture类，创建开启摄像头
+			2、将捕捉摄像头画面的程序加入Application.Idle中
+
+FaceDetection：
+	实现了人脸检测
+	参考文章：
+		http://ahmedopeyemi.com/main/face-detection-and-recognition-in-c-using-emgucv-3-0-opencv-wrapper-part-1/
+		基本思路：
+			1、打开摄像头，
+			2、利用Timer不断的获取摄像头捕捉的画面
+			3、使用Viola-Joners算法（emgu3.0以上在CascadeClassifier类中）检测人脸
+			4、将检测到的人脸标记出来
+			5、显示图像
+		人脸检测算法：
+			1、结合滑动窗口的特征提取和人工神经网络等分类器方法的人脸检测方法：Feature-based
+			2、直接使用图像像素本身的人脸检测方法：Image-based
+			3、Viola-Jones检测器
+			参考自:(blog.csdn.net/zxia1/article/details/25107561，blog/csdn.net/hqw7286/article/details/5556767)
+					三个核心步骤：
+						a、Haar-like特征
+							对于给定的矩形（黑色矩形和白色矩形），在一个滑动窗口中计算黑色矩形和白色矩形之间像素和之差，然后判断其值与给定阈值的大小。根据判断来决定是否进行下一次的计算
+							（即判断是继续计算还是进行滑动）
+						b、积分图
+							积分图主要的思想是将图像从起点开始到各个点所形成的矩形区域像素之和作为一个数组的保存在内存当中，当要计算某一个区域的像素和时可以直接索引数组中的元素。
+						（1）任意矩形区域内像素积分（由图像的积分图可以方便快速的计算图像中任意矩形内所有像素灰度积分）ii(x,y)为点（x,y）的积分图
+							eg：点1的积分图像ii1的值为：ii1 = Sum(A)。同理点2的值为：ii2 = Sum(A)+Sum(B)、点3:ii3=Sum(A)+Sum(C)、点4:ii4 = Sum(A)+Sum(B)+Sum(C)+Sum(D) 矩形区域D内的所有像素灰度积分可由矩形端点的积分图像得到：Sum(D) = ii1+ii4-(ii2+ii3)
+						（2）特征值计算：矩形的特征值是两个不同的矩形区域像素和之差。
+							由（1）可以计算任意矩形特征的特征值，所以此类特征原型的特征值为：(ii4-ii3)-(ii2-ii1)+(ii4-ii3)-(ii6-ii5)
+						矩形特征的特征值计算，只与此特征矩形的端点的积分图有关，所以不管次特征矩形的尺度变换如何，特征值的计算所消耗的时间都是常量
+						b、Adaboost分类器
+							利用该算法挑选出一些最能代表人脸的矩形特征（弱分类器，按照加权投票的方式将弱分类器构造成为一个强分类器）
+							首先提取Haar特征；然后将Haar特征转化成对应的弱分类器；最后从弱分类器中迭代选择出最优弱分类器
+
+						c、Cascade级联分类器
+							将训练得到的若干强分类器串联组成一个级联结构的层叠分类器，级联结构可以有效的提高分类器的检测速度
+		主要方法：
+			1、CascadeClassifier cascadeClassifier = new CascadeClassifier(string);
+				参数string：
+					这个是CascaClassifer 人脸检测的训练数据，该数据一般存放在（[EmguCV ROOT]\opencv\data\haarcascades目录中）,该数据已经经训练。（人脸识别属于机器学习的范畴）
+		  2、cascadeClassifier.DetectMultiScale(grayFrame,1.1,10,Size.Empty)
+				参数：
+					grayFrame:待检测图像的灰度图
+					1.1：缩放因子，这个值必须大于1.0，越接近1.0检测人脸的时间越长，但是识别率越高。
+					10：邻近值得范围。最小为1.默认为3.该值越小，图像中出现的矩形越多。
+					Size.Empty:像素尺寸
+	faceRecognition
+		实现了人脸识别的功能
+		参考文章:
+			http://ahmedopeyemi.com/main/face-detection-and-recognition-in-c-using-emgucv-3-0-opencv-wrapper-part-2/
+		使用方法：
+			由于人脸检测需要先采集数据，所以需要先，打开摄像头。并在文本框中输入名称。点击数据采集按钮即可完成数据的采集工作。数据采集完成后，点击数据训练就完成了数据的分析及训练。
+最后采集和训练完成后便可以进行人脸识别了：
+		基本思路：
