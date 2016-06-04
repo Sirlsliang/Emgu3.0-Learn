@@ -1,0 +1,7 @@
+FastFeatureDetector:
+  SURF Feature Detector 中使用的算法有版权保护，所有在商业版中需要支付一定的费用。但是FastFeatureDetector 则不会。
+
+  基本思路：
+    Fast Feature Detector 与 Surf Feature Detector 中的思路大致相同，这里就做细说了。
+    但是在用Fast Feature Detector(Emgu 中的FastDetector类)进行图像检测时，发现该检测器，无法提取图像的descriptor。只好按照文档中使用，BriefDescriptorExtractor。
+使用BriefDescriptorExtractor 检测器提取出descriptor 然后再进行图像特征点的匹配及检测等步骤。

@@ -93,11 +93,14 @@ namespace SURFFactureDetector
                     {
                         Image<Gray, byte> grayImage = frameImage.Convert<Gray, byte>();
                         var faces = cascadeClassifier.DetectMultiScale(grayImage, 1.1, 12, Size.Empty);
+                       
                         foreach (var face in faces)
                         {
+                            frameImage.GrabCut(face, 1);
                             frameImage.Draw(face, new Bgr(Color.Red), 3);
                         }
                     }
+                   
                     imageBox1.Image = frameImage;
                 }
             }
