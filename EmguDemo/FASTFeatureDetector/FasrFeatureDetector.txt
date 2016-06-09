@@ -1,4 +1,4 @@
-FastFeatureDetector:
+﻿FastFeatureDetector:
   SURF Feature Detector 中使用的算法有版权保护，所有在商业版中需要支付一定的费用。但是FastFeatureDetector 则不会。
 
   基本思路：

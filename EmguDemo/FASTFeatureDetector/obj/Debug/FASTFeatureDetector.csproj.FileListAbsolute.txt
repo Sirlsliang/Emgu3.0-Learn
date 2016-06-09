@@ -19,3 +19,4 @@ D:\C#\Emgu3.0-Learn\EmguDemo\FASTFeatureDetector\obj\Debug\FASTFeatureDetector.P
 D:\C#\Emgu3.0-Learn\EmguDemo\FASTFeatureDetector\obj\Debug\FASTFeatureDetector.csproj.GenerateResource.Cache
 D:\C#\Emgu3.0-Learn\EmguDemo\FASTFeatureDetector\obj\Debug\FASTFeatureDetector.exe
 D:\C#\Emgu3.0-Learn\EmguDemo\FASTFeatureDetector\obj\Debug\FASTFeatureDetector.pdb
+D:\C#\Emgu3.0-Learn\EmguDemo\FASTFeatureDetector\obj\Debug\FASTFeatureDetector.PolyIm.resources
